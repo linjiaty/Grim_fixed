@@ -53,6 +53,9 @@
 FILE			*_out_fp;
 gzFile			_out_gzfp;
 
+void (*finalizeOutput)() = NULL;
+void (*output)(SAM map) = NULL;
+
 char buffer[300000];
 int bufferSize = 0;
 

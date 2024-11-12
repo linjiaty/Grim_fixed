@@ -22,7 +22,7 @@ void fbv_write_size_space();
 void fbv_write_size(long long size);
 void fbv_write_data(unsigned data);
 
-void (*generateBitvectors)(char *refGenome_filename, char *bv_filename);
-int  (*loadBitvectors)(double *loadTime);
-int  (*loadFinalBitvector)(double *loadTime);
+extern void (*generateBitvectors)(char *refGenome_filename, char *bv_filename);
+extern int  (*loadBitvectors)(double *loadTime);
+extern int  (*loadFinalBitvector)(double *loadTime);
 #endif

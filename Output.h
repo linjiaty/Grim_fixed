@@ -77,8 +77,8 @@ typedef struct
 } SAM;
 
 int initOutput(char *fileName, int compressed);
-void (*finalizeOutput)();
-void (*output)(SAM map);
+extern void (*finalizeOutput)();
+extern void (*output)(SAM map);
 void outputSAM(FILE *fp, SAM map);
 
 FILE * getOutputFILE();

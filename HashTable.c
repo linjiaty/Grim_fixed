@@ -51,6 +51,11 @@ bleups AT gmail DOT com
 #include "RefGenome.h"
 #include "HashTable.h"
 /**********************************************/
+void (*generateHashTable)(char *fileName, char *indexName) = NULL;
+int (*loadHashTable)(double *loadTime, int errThreshold) = NULL;
+void (*finalizeLoadingHashTable)() = NULL;
+unsigned int *(*getCandidates)(int hv) = NULL;
+
 FILE		*_ih_fp			= NULL;
 IHashTable	*_ih_hashTable		= NULL;
 int 		_ih_maxHashTableSize	= 0;

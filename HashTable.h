@@ -65,9 +65,9 @@ int				getRefGenomeOffset();
 int				initLoadingHashTable(char *fileName);
 HashTable		*getHashTable();
 
-void 			(*generateHashTable)(char *fileName, char *indexName);
-int				(*loadHashTable)(double *loadTime, int errThreshould);
-void			(*finalizeLoadingHashTable)();
-unsigned int	*(*getCandidates)(int hv);
+extern void 			(*generateHashTable)(char *fileName, char *indexName);
+extern int				(*loadHashTable)(double *loadTime, int errThreshould);
+extern void			(*finalizeLoadingHashTable)();
+extern unsigned int	*(*getCandidates)(int hv);
 
 #endif

@@ -76,7 +76,7 @@ int 				nosamMode;
 int                             debugMode=0;
 char				*seqFile1;
 char				*seqFile2;
-char				*mappingOutput = "output";
+//char				*mappingOutput = "output";
 char				*mappingOutputPath = "";
 char				*unmappedOutput = "unmapped";
 char				fileName[5][FILE_NAME_LENGTH];

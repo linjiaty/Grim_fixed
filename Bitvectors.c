@@ -38,6 +38,10 @@ unsigned checkBitvectors_iter = 1;
 unsigned last_bin_num = 0;
 double avg_checkTime = 0;
 long long total_bitvectorsSize = 0;
+
+void (*generateBitvectors)(char *refGenome_filename, char *bv_filename) = NULL;
+int (*loadBitvectors)(double *loadTime) = NULL;
+int (*loadFinalBitvector)(double *loadTime) = NULL;
 /*************************************************/
 
 // we want to generate the bitvector file using a reference genome file
