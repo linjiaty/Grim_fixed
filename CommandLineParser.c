@@ -86,11 +86,11 @@ unsigned char			errThreshold=255;
 unsigned char			maxHits=0;
 unsigned char			WINDOW_SIZE = 12;
 unsigned char           BV_TOKEN_SIZE = 5;
-unsigned int            BV_NUM_BINS = 6553600; // recommended ranges.. 6553600 - 32768000
+unsigned int            BV_NUM_BINS = 21; // recommended ranges.. 6553600 - 32768000
 unsigned char           PIM_MODE = 0;
 unsigned int            BV_MULTIPLICITY = 1; // up to how many sequences are counted in one bkt
-unsigned int            GENOME_SIZE = 3101804739;
-unsigned int            BV_BIN_SIZE = 3101804739 / 6553600;
+unsigned int            GENOME_SIZE = 9996;
+unsigned int            BV_BIN_SIZE = 9996 / 21;
 unsigned int            BV_COALESCING = 0; // whether we convert all locs to bin before
 unsigned int			CONTIG_SIZE;
 unsigned int			CONTIG_MAX_SIZE;

@@ -367,32 +367,33 @@ unsigned checkBitvectors(unsigned genLoc, char **seq, unsigned subseq_num) {
     int i;
     for (i = 0; i < SEQ_LENGTH - BV_TOKEN_SIZE + 1; i++) {
         int hv = bv_hashVal(*seq + i);
-        if (hv == -1) return 0;
+        //if (hv == -1) return 0;
 
         int tmp = 0;
-        if (BV_MULTIPLICITY != 1) {
-            tmp = read_sequence_count[hv]++;
-            if (tmp >= BV_MULTIPLICITY) {
-                tmp = BV_MULTIPLICITY - 1;
-            }
-        }
-
+        //if (BV_MULTIPLICITY != 1) {
+        //    tmp = read_sequence_count[hv]++;
+        //    if (tmp >= BV_MULTIPLICITY) {
+        //        tmp = BV_MULTIPLICITY - 1;
+        //    }
+        //}
+	
         int tmp_BV_Val = _bitvector[(tmp * (CUR_NUM_BINS) * ints_per_perm) + 
                                     (bin_num * ints_per_perm) + (hv / ints_per_perm)]
                                     >> ((ints_per_perm - 1) - (hv % ints_per_perm));
 
-        if (errThreshold == 0) {
-            count &= (1 & tmp_BV_Val);
-            if (count == 0) {
-                break;
-            }
-        }
-        else {
-            count += (1 & tmp_BV_Val);
-            if (count >= threshold) {
-                break;
-            }
-        }
+        //if (errThreshold == 0) {
+        //    count &= (1 & tmp_BV_Val);
+        //    if (count == 0) {
+        //        break;
+        //    }
+        //}
+        //else {
+        //    count += (1 & tmp_BV_Val);
+        //    if (count >= threshold) {
+        //        break;
+        //    }
+        //}
+	count += (1 & tmp_BV_Val);
     }
     
     if (!(checkBitvectors_iter % 1000)) {
