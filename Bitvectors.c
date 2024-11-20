@@ -13,6 +13,7 @@ across the bins.
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <sim_api.h>
 #include "Bitvectors.h"
 #include "Common.h"
 #include "RefGenome.h"
@@ -365,6 +366,10 @@ unsigned checkBitvectors(unsigned genLoc, char **seq, unsigned subseq_num) {
         count = 1;
     }
     int i;
+    #ifdef SIM_ROI
+    SimRoiStart();
+    #endif
+    #pragma omp parallel for schedule(dynamic)
     for (i = 0; i < SEQ_LENGTH - BV_TOKEN_SIZE + 1; i++) {
         int hv = bv_hashVal(*seq + i);
         //if (hv == -1) return 0;
@@ -395,6 +400,9 @@ unsigned checkBitvectors(unsigned genLoc, char **seq, unsigned subseq_num) {
         //}
 	count += (1 & tmp_BV_Val);
     }
+    #ifdef SIM_ROI
+    SimRoiEnd();
+    #endif
     
     if (!(checkBitvectors_iter % 1000)) {
         avg_checkTime += (getTime() - startTime);
