@@ -133,34 +133,51 @@ void generateIBitvectors(char *refGenome_filename, char *bv_fileName) {
     printf("\nDONE in %0.5fs!\n", (getTime() - startTime));
 }
 
-int bv_hashVal(char *seq) {
-    int i = 0;
-    int val = 0, numericVal = 0;
+//int bv_hashVal(char *seq) {
+//    int i = 0;
+//    int val = 0, numericVal = 0;
+//
+//    while (i < BV_TOKEN_SIZE) {
+//        //printf("%c", seq[i]);
+//        switch (seq[i]) {
+//            case 'A':
+//                numericVal = 0;
+//                break;
+//            case 'C':
+//                numericVal = 1;
+//                break;
+//            case 'G' :
+//                numericVal = 2;
+//                break;
+//            case 'T':
+//                numericVal = 3;
+//                break;
+//            default:
+//                return -1;
+//                break;
+//        }
+//        val = (val << 2) | numericVal;
+//        i++;
+//    }
+//    //printf("\n");
+//    return val;
+//}
 
-    while (i < BV_TOKEN_SIZE) {
-        //printf("%c", seq[i]);
-        switch (seq[i]) {
-            case 'A':
-                numericVal = 0;
-                break;
-            case 'C':
-                numericVal = 1;
-                break;
-            case 'G' :
-                numericVal = 2;
-                break;
-            case 'T':
-                numericVal = 3;
-                break;
-            default:
-                return -1;
-                break;
-        }
-        val = (val << 2) | numericVal;
-        i++;
+int bv_hashVal(char *seq) {
+    // Use a lookup table to replace switch function
+    const int baseLookup[256] = { ['A'] = 0, ['C'] = 1, ['G'] = 2, ['T'] = 3 };
+    int val = 0;
+    // InvalidFlag to catch the default case -1
+    int invalidFlag = 0;
+    for (int i = 0; i < BV_TOKEN_SIZE; i++) {
+        int numericVal = baseLookup[(unsigned char)seq[i]];
+        // Update invalidFlag without using a comparison
+        invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+        // Construct the hash value
+        val = (val << 2) | (numericVal & 3);
     }
-    //printf("\n");
-    return val;
+    // Return value without ternary or if
+    return (val & ~(-invalidFlag)) | (-invalidFlag);
 }
 
 // specific to 100 length sequences. 
