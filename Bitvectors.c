@@ -163,19 +163,57 @@ void generateIBitvectors(char *refGenome_filename, char *bv_fileName) {
 //    return val;
 //}
 
+//int bv_hashVal(char *seq) {
+//    // Use a lookup table to replace switch function
+//    const int baseLookup[256] = { ['A'] = 0, ['C'] = 1, ['G'] = 2, ['T'] = 3 };
+//    int val = 0;
+//    // InvalidFlag to catch the default case -1
+//    int invalidFlag = 0;
+//    for (int i = 0; i < BV_TOKEN_SIZE; i++) {
+//        int numericVal = baseLookup[(unsigned char)seq[i]];
+//        // Update invalidFlag without using a comparison
+//        invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+//        // Construct the hash value
+//        val = (val << 2) | (numericVal & 3);
+//    }
+//    // Return value without ternary or if
+//    return (val & ~(-invalidFlag)) | (-invalidFlag);
+//}
+
 int bv_hashVal(char *seq) {
-    // Use a lookup table to replace switch function
     const int baseLookup[256] = { ['A'] = 0, ['C'] = 1, ['G'] = 2, ['T'] = 3 };
+
     int val = 0;
-    // InvalidFlag to catch the default case -1
     int invalidFlag = 0;
-    for (int i = 0; i < BV_TOKEN_SIZE; i++) {
-        int numericVal = baseLookup[(unsigned char)seq[i]];
-        // Update invalidFlag without using a comparison
-        invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
-        // Construct the hash value
-        val = (val << 2) | (numericVal & 3);
-    }
+
+    // Unrolled loop for BV_TOKEN_SIZE = 5
+    int numericVal;
+
+    // Process character 1
+    numericVal = baseLookup[(unsigned char)seq[0]];
+    invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+    val = (val << 2) | (numericVal & 3);
+
+    // Process character 2
+    numericVal = baseLookup[(unsigned char)seq[1]];
+    invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+    val = (val << 2) | (numericVal & 3);
+
+    // Process character 3
+    numericVal = baseLookup[(unsigned char)seq[2]];
+    invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+    val = (val << 2) | (numericVal & 3);
+
+    // Process character 4
+    numericVal = baseLookup[(unsigned char)seq[3]];
+    invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+    val = (val << 2) | (numericVal & 3);
+
+    // Process character 5
+    numericVal = baseLookup[(unsigned char)seq[4]];
+    invalidFlag |= numericVal >> (sizeof(int) * 8 - 1);
+    val = (val << 2) | (numericVal & 3);
+
     // Return value without ternary or if
     return (val & ~(-invalidFlag)) | (-invalidFlag);
 }
